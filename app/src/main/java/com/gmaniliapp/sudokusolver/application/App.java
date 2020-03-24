@@ -1,11 +1,16 @@
 package com.gmaniliapp.sudokusolver.application;
 
 import android.app.Application;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.View;
 import android.widget.TextView;
 
+import com.gmaniliapp.sudokusolver.R;
 import com.google.android.material.snackbar.Snackbar;
+
+import static com.gmaniliapp.sudokusolver.utils.Constants.APP_LINK;
 
 public class App extends Application {
 
@@ -46,5 +51,20 @@ public class App extends Application {
     public void displaySnackbar(View view, String message) {
         Snackbar snackbar = createSnackbar(view, message);
         snackbar.show();
+    }
+
+    /**
+     * Share app
+     * @param context: Context from where sharing
+     */
+    public void share(Context context) {
+        String message = getString(R.string.share_message, getString(R.string.app_name), APP_LINK);
+
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));
+        intent.putExtra(Intent.EXTRA_TEXT, message);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(Intent.createChooser(intent, getString(R.string.share)));
     }
 }

@@ -1,19 +1,25 @@
 package com.gmaniliapp.sudokusolver.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.gmaniliapp.sudokusolver.R;
 import com.gmaniliapp.sudokusolver.application.App;
 import com.gmaniliapp.sudokusolver.fragments.SudokuFragment;
+import com.gmaniliapp.sudokusolver.utils.AppRater;
 import com.gmaniliapp.sudokusolver.utils.SudokuListener;
 
 public class MainActivity extends AppCompatActivity implements SudokuListener {
 
+    private AppRater appRater;
     private ProgressBar progress_bar;
 
     @Override
@@ -27,7 +33,31 @@ public class MainActivity extends AppCompatActivity implements SudokuListener {
             fragmentTransaction.commit();
         }
 
+        appRater = new AppRater(this);
+
         progress_bar = findViewById(R.id.progress_bar);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Rate
+            case R.id.action_rate:
+                appRater.rate();
+                return true;
+            // Share
+            case R.id.action_share:
+                App.getInstance().share(this);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     /**

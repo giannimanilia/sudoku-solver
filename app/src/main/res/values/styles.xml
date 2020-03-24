@@ -1,12 +1,38 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight">
+    <!-- App -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light">
         <item name="colorPrimary">@color/primary_color</item>
         <item name="colorPrimaryDark">@color/primary_color_dark</item>
         <item name="colorPrimaryVariant">@color/primary_color_dark</item>
         <item name="colorOnPrimary">@color/white</item>
         <item name="colorSecondary">@color/accent_color</item>
         <item name="colorOnSecondary">@color/secondary_text_color</item>
+        <item name="toolbarStyle">@style/ToolBarTheme</item>
     </style>
 
+    <!-- Toolbar -->
+    <style name="ToolBarTheme" parent="@style/Widget.AppCompat.Toolbar">
+        <item name="titleTextColor">@color/white</item>
+    </style>
+
+    <!-- Material dialog -->
+    <style name="MaterialDialogTheme">
+        <item name="buttonBarPositiveButtonStyle">@style/Alert.Button.Positive</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Alert.Button.Negative</item>
+        <item name="buttonBarNeutralButtonStyle">@style/Alert.Button.Neutral</item>
+    </style>
+
+    <!-- Positive button -->
+    <style name="Alert.Button.Positive" parent="Widget.MaterialComponents.Button">
+    </style>
+
+    <!-- Negative button -->
+    <style name="Alert.Button.Negative" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:layout_marginEnd">8dp</item>
+    </style>
+
+    <!-- Neutral button -->
+    <style name="Alert.Button.Neutral" parent="Widget.MaterialComponents.Button.OutlinedButton">
+    </style>
 </resources>
