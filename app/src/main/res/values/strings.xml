@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">Sudoku Solver</string>
+    <string name="clear">Clear</string>
     <string name="empty_sudoku">The sudoku can\'t be empty!</string>
-    <string name="unsolvable_sudoku">This sudoku is unsolvable!</string>
     <string name="reset">Reset</string>
     <string name="solve">Solve</string>
+    <string name="solver_stopped">Solver stopped</string>
+    <string name="stop">Stop</string>
+    <string name="unsolvable_sudoku">This sudoku is unsolvable!</string>
 </resources>
