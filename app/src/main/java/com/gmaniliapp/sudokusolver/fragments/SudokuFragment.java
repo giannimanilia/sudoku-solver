@@ -151,38 +151,29 @@ public class SudokuFragment extends Fragment {
 
             // Configure clear
             Button bt_clear = view.findViewById(R.id.bt_clear);
-            bt_clear.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    stopIfRunning();
-                    board = createEmptyBoard();
-                    setSolvedStatus(false);
-                    loadBoard();
-                }
+            bt_clear.setOnClickListener(view12 -> {
+                stopIfRunning();
+                board = createEmptyBoard();
+                setSolvedStatus(false);
+                loadBoard();
             });
 
             // Configure solve
             bt_solve = view.findViewById(R.id.bt_solve);
-            bt_solve.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if (!stopIfRunning()) {
-                        sudokuTask = new SudokuTask(SudokuFragment.this);
-                        sudokuTask.execute();
-                    }
+            bt_solve.setOnClickListener(view1 -> {
+                if (!stopIfRunning()) {
+                    sudokuTask = new SudokuTask(SudokuFragment.this);
+                    sudokuTask.execute();
                 }
             });
 
             // Configure reset
             bt_reset = view.findViewById(R.id.bt_reset);
-            bt_reset.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    stopIfRunning();
-                    resetBoard(board);
-                    setSolvedStatus(false);
-                    loadBoard();
-                }
+            bt_reset.setOnClickListener(view13 -> {
+                stopIfRunning();
+                resetBoard(board);
+                setSolvedStatus(false);
+                loadBoard();
             });
         }
     }
