@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:drawable="@drawable/cell"/>
+
+    <item
+        android:top="@dimen/cell_border_margin"
+        android:bottom="@dimen/cell_border_margin"
+        android:drawable="@drawable/border_left"/>
+
+    <item
+        android:left="@dimen/cell_border_margin"
+        android:right="@dimen/cell_border_margin"
+        android:drawable="@drawable/border_top"/>
+</layer-list>

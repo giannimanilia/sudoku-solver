@@ -16,6 +16,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 
@@ -91,6 +92,8 @@ public class SudokuFragment extends Fragment {
         // Populate table dynamically
         TableLayout.LayoutParams tableParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
         TableRow.LayoutParams cellParams = new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1.0f);
+        TableRow.LayoutParams numberParams = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT);
+        numberParams.setMargins(8,8,8,8);
 
         tl_sudoku = view.findViewById(R.id.tl_sudoku);
         for (int i = 0; i < SUDOKU_DIMENSION; i++) {
@@ -104,9 +107,10 @@ public class SudokuFragment extends Fragment {
 
                 // Create new cell
                 final EditText et_number = new EditText(fragmentActivity);
-                et_number.setLayoutParams(cellParams);
+                et_number.setLayoutParams(numberParams);
+                et_number.setBackground(fragmentActivity.getResources().getDrawable(R.drawable.cell_number));
                 et_number.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                et_number.setBackground(fragmentActivity.getResources().getDrawable(getBackground(i, j)));
+                et_number.setCursorVisible(false);
                 et_number.setKeyListener(DigitsKeyListener.getInstance("123456789"));
 
                 InputFilter[] inputFilters = new InputFilter[1];
@@ -127,14 +131,18 @@ public class SudokuFragment extends Fragment {
                         String value = editable.toString();
 
                         if (board[finalI][finalJ].getValue() == 0) {
+                            // Value inserted by the user
                             if (!value.isEmpty()) {
                                 board[finalI][finalJ].setHighlighted(true);
                                 et_number.setTypeface(null, Typeface.BOLD);
                             }
+                            et_number.setActivated(!value.isEmpty());
                         }
                         else {
+                            // Value inserted by the solver
                             board[finalI][finalJ].setHighlighted(false);
                             et_number.setTypeface(null, Typeface.NORMAL);
+                            et_number.setActivated(false);
                         }
 
                         if (value.isEmpty())
@@ -143,7 +151,13 @@ public class SudokuFragment extends Fragment {
                             board[finalI][finalJ].setValue(Integer.parseInt(value));
                     }
                 });
-                tr_row.addView(et_number);
+
+                LinearLayout cell = new LinearLayout(fragmentActivity);
+                cell.setLayoutParams(cellParams);
+                cell.setBackground(fragmentActivity.getResources().getDrawable(getCellBackground(i,j)));
+                cell.addView(et_number);
+
+                tr_row.addView(cell);
             }
             tl_sudoku.addView(tr_row);
         }
@@ -180,29 +194,35 @@ public class SudokuFragment extends Fragment {
 
     /**
      * Select background depending of position
-     * @param row: Element's row
-     * @param column: Element's column
+     * @param row: Cell's row
+     * @param column: Cell's column
      * @return int
      */
-    private int getBackground(int row, int column) {
-        if (column % SUDOKU_ORDER == 0 && row % SUDOKU_ORDER == 0)
-            return R.drawable.grid_top_left_border;
-        else if (column % SUDOKU_ORDER == 0 && row == SUDOKU_DIMENSION - 1)
-            return R.drawable.grid_bottom_left_border;
-        else if (column == SUDOKU_DIMENSION - 1 && row % SUDOKU_ORDER == 0)
-            return R.drawable.grid_top_right_border;
-        else if (column == SUDOKU_DIMENSION - 1 && row == SUDOKU_DIMENSION - 1)
-            return R.drawable.grid_bottom_right_border;
-        else if (column == SUDOKU_DIMENSION - 1)
-            return R.drawable.grid_right_border;
-        else if (column % SUDOKU_ORDER != 0 && row == SUDOKU_DIMENSION - 1)
-            return R.drawable.grid_bottom_border;
-        else if (column % SUDOKU_ORDER == 0)
-            return R.drawable.grid_left_border;
-        else if (row % SUDOKU_ORDER == 0)
-            return R.drawable.grid_top_border;
-        else
-            return R.drawable.grid_border;
+    private int getCellBackground(int row, int column) {
+        if (column == 0) {
+            if (row == 0)
+                return R.drawable.cell_neutral;
+            else if (row % SUDOKU_ORDER == 0)
+                return R.drawable.cell_neutral_horizontal;
+            else
+                return R.drawable.cell_horizontal;
+        }
+        else if (column % SUDOKU_ORDER == 0) {
+            if (row == 0)
+                return R.drawable.cell_neutral_vertical;
+            if (row % SUDOKU_ORDER == 0)
+                return R.drawable.cell_square_limit;
+            else
+                return R.drawable.cell_vertical_limit;
+        }
+        else {
+            if (row == 0)
+                return R.drawable.cell_vertical;
+            else if (row % SUDOKU_ORDER == 0)
+                return R.drawable.cell_horizontal_limit;
+            else
+                return R.drawable.cell_square;
+        }
     }
 
     /**
@@ -210,19 +230,30 @@ public class SudokuFragment extends Fragment {
      */
     private void loadBoard() {
         for (int i = 0; i < tl_sudoku.getChildCount(); i++) {
+            if (!(tl_sudoku.getChildAt(i) instanceof TableRow))
+                return;
+
             TableRow tr_row = (TableRow) tl_sudoku.getChildAt(i);
             for (int j = 0; j < tr_row.getChildCount(); j++) {
-                EditText et_number = (EditText) tr_row.getChildAt(j);
-                et_number.setBackground(fragmentActivity.getResources().getDrawable(getBackground(i, j)));
+                if (!(tr_row.getChildAt(j) instanceof LinearLayout))
+                    return;
 
-                if (board[i][j].isHighlighted())
-                    continue;
-                else if (board[i][j].getValue() == 0)
-                    et_number.setText("");
-                else
-                    et_number.setText(String.valueOf(board[i][j].getValue()));
+                LinearLayout root = (LinearLayout) tr_row.getChildAt(j);
+                for (int k = 0; k < root.getChildCount(); k++) {
+                    if (!(root.getChildAt(k) instanceof EditText))
+                        return;
 
-                et_number.startAnimation(getAnimation());
+                    EditText et_number = (EditText) root.getChildAt(k);
+
+                    if (board[i][j].isHighlighted())
+                        continue;
+                    else if (board[i][j].getValue() == 0)
+                        et_number.setText("");
+                    else
+                        et_number.setText(String.valueOf(board[i][j].getValue()));
+
+                    et_number.startAnimation(getAnimation());
+                }
             }
         }
     }
@@ -333,7 +364,10 @@ public class SudokuFragment extends Fragment {
             if (fragment == null || fragment.fragmentActivity.isFinishing())
                 cancel(true);
 
-            return solveSudoku(fragment.board);
+            if (isValidSudoku(fragment.board))
+                return solveSudoku(fragment.board);
+            else
+                return false;
         }
 
         @Override
@@ -356,6 +390,32 @@ public class SudokuFragment extends Fragment {
             fragment.setSolvedStatus(false);
         }
 
+        /** Check if a given sudoku is valid
+         * @param sudoku: Sudoku to check
+         * @return boolean
+         */
+        private boolean isValidSudoku(Cell[][] sudoku) {
+            if (sudoku.length != SUDOKU_DIMENSION || sudoku[0].length != SUDOKU_DIMENSION)
+                return false;
+
+            for (int row = 0; row < SUDOKU_DIMENSION; row ++) {
+                for (int column = 0; column < SUDOKU_DIMENSION; column++) {
+                    int number = sudoku[row][column].getValue();
+                    if (number != 0) {
+                        sudoku[row][column].setValue(0);
+                        if (isInRow(row, number, sudoku) || isInColumn(column, number, sudoku) || isInBox(row, column, number, sudoku)) {
+                            sudoku[row][column].setValue(number);
+                            return false;
+                        }
+                        else {
+                            sudoku[row][column].setValue(number);
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
         /**
          * Solve sudoku using backtracking
          * @param sudoku: Sudoku to solve
@@ -365,18 +425,18 @@ public class SudokuFragment extends Fragment {
             if (isCancelled())
                 return false;
 
+            // Iterate all rows and columns and use only the empty slots
             for (int row = 0; row < SUDOKU_DIMENSION; row ++) {
                 for (int column = 0; column < SUDOKU_DIMENSION; column++) {
                     if (sudoku[row][column].getValue() == 0) {
                         for (int number = 1; number <= SUDOKU_DIMENSION; number++) {
                             if (!isInRow(row, number, sudoku) && !isInColumn(column, number, sudoku) && !isInBox(row, column, number, sudoku)) {
+                                // Backtracking
                                 sudoku[row][column].setValue(number);
-                                if (solveSudoku(sudoku)) {
+                                if (solveSudoku(sudoku))
                                     return true;
-                                }
-                                else {
+                                else
                                     sudoku[row][column].setValue(0);
-                                }
                             }
                         }
                         return false;

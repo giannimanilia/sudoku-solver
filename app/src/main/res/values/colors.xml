@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Base colors -->
-    <color name="black">@android:color/black</color>
     <color name="transparent">@android:color/transparent</color>
     <color name="white">@android:color/white</color>
 
+    <!-- Color palette -->
     <color name="accent_color">#795548</color>
     <color name="divider_color">#BDBDBD</color>
-    <color name="icons_color">@color/white</color>
     <color name="primary_color">#FF5722</color>
     <color name="primary_color_dark">#E64A19</color>
     <color name="primary_color_light">#FFCCBC</color>
     <color name="primary_text_color">#212121</color>
     <color name="secondary_text_color">#757575</color>
 
-    <color name="grid_item_background">@color/white</color>
-    <color name="grid_item_inserted">@color/white</color>
-    <color name="grid_item_resolved">@color/primary_color_light</color>
+    <!-- Items -->
+    <color name="cell_background_color">@color/white</color>
+    <color name="cell_border_color">@color/divider_color</color>
+    <color name="cell_limit_border_color">@color/primary_color</color>
 </resources>

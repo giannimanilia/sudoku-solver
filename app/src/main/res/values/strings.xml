@@ -11,7 +11,6 @@
     <string name="rate_app">Rate the app</string>
     <string name="remind_me_later">Remind me later</string>
     <string name="solve">Solve</string>
-    <string name="solver_stopped">Solver stopped</string>
     <string name="stop">Stop</string>
     <string name="unsolvable_sudoku">This sudoku is unsolvable!</string>
     <string name="yes">Yes</string>
