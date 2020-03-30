@@ -146,36 +146,36 @@ public class SudokuFragment extends Fragment {
                 tr_row.addView(et_number);
             }
             tl_sudoku.addView(tr_row);
-
-            loadBoard();
-
-            // Configure clear
-            Button bt_clear = view.findViewById(R.id.bt_clear);
-            bt_clear.setOnClickListener(view12 -> {
-                stopIfRunning();
-                board = createEmptyBoard();
-                setSolvedStatus(false);
-                loadBoard();
-            });
-
-            // Configure solve
-            bt_solve = view.findViewById(R.id.bt_solve);
-            bt_solve.setOnClickListener(view1 -> {
-                if (!stopIfRunning()) {
-                    sudokuTask = new SudokuTask(SudokuFragment.this);
-                    sudokuTask.execute();
-                }
-            });
-
-            // Configure reset
-            bt_reset = view.findViewById(R.id.bt_reset);
-            bt_reset.setOnClickListener(view13 -> {
-                stopIfRunning();
-                resetBoard(board);
-                setSolvedStatus(false);
-                loadBoard();
-            });
         }
+
+        loadBoard();
+
+        // Configure clear
+        Button bt_clear = view.findViewById(R.id.bt_clear);
+        bt_clear.setOnClickListener(view12 -> {
+            stopIfRunning();
+            board = createEmptyBoard();
+            setSolvedStatus(false);
+            loadBoard();
+        });
+
+        // Configure solve
+        bt_solve = view.findViewById(R.id.bt_solve);
+        bt_solve.setOnClickListener(view1 -> {
+            if (!stopIfRunning()) {
+                sudokuTask = new SudokuTask(SudokuFragment.this);
+                sudokuTask.execute();
+            }
+        });
+
+        // Configure reset
+        bt_reset = view.findViewById(R.id.bt_reset);
+        bt_reset.setOnClickListener(view13 -> {
+            stopIfRunning();
+            resetBoard(board);
+            setSolvedStatus(false);
+            loadBoard();
+        });
     }
 
     /**
