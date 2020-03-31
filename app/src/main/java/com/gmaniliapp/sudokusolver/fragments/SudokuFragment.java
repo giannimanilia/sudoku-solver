@@ -112,6 +112,8 @@ public class SudokuFragment extends Fragment {
                 et_number.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                 et_number.setCursorVisible(false);
                 et_number.setKeyListener(DigitsKeyListener.getInstance("123456789"));
+                et_number.setSelectAllOnFocus(true);
+                et_number.setHighlightColor(fragmentActivity.getResources().getColor(R.color.transparent));
 
                 InputFilter[] inputFilters = new InputFilter[1];
                 inputFilters[0] = new InputFilter.LengthFilter(1);

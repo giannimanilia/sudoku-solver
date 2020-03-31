@@ -16,7 +16,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:stretchColumns="*">
+            android:stretchColumns="*"
+            android:background="@color/white"
+            android:elevation="8dp">
         </TableLayout>
 
         <com.google.android.material.button.MaterialButton

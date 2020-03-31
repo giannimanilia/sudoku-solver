@@ -2,7 +2,17 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:state_focused="true" android:state_activated="true">
         <shape>
-            <solid android:color="#EEEEEE"/>
+            <solid android:color="@color/cell_number_color"/>
+            <stroke
+                android:width="2.3dp"
+                android:color="@color/primary_color" />
+            <corners android:radius="16dp" />
+        </shape>
+    </item>
+
+    <item android:state_focused="true" android:state_enabled="true">
+        <shape>
+            <solid android:color="@color/cell_number_color"/>
             <stroke
                 android:width="2.3dp"
                 android:color="@color/primary_color" />
@@ -22,7 +32,7 @@
 
     <item android:state_activated="true">
         <shape>
-            <solid android:color="#EEEEEE"/>
+            <solid android:color="@color/cell_number_color"/>
             <corners android:radius="16dp" />
         </shape>
     </item>

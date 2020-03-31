@@ -14,7 +14,8 @@
     <color name="secondary_text_color">#757575</color>
 
     <!-- Items -->
-    <color name="cell_background_color">@color/white</color>
+    <color name="cell_background_color">#FAFAFA</color>
     <color name="cell_border_color">@color/divider_color</color>
     <color name="cell_limit_border_color">@color/primary_color</color>
+    <color name="cell_number_color">#E0E0E0</color>
 </resources>
