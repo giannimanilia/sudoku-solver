@@ -2,10 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:application="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.MainActivity">
+    tools:context=".ui.MainActivity">
 
     <ProgressBar
         style="?android:attr/progressBarStyleHorizontal"
@@ -18,13 +19,22 @@
         android:indeterminateOnly="false"
         android:indeterminateDrawable="@drawable/progress"
         android:visibility="invisible"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        application:layout_constraintRight_toRightOf="parent"
+        application:layout_constraintLeft_toLeftOf="parent"
+        application:layout_constraintTop_toTopOf="parent" />
 
     <FrameLayout
         android:id="@+id/fm_sudoku"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/progress_bar"/>
+        application:layout_constraintTop_toBottomOf="@id/progress_bar">
+
+        <fragment
+            android:id="@+id/navHostFragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            application:defaultNavHost="true"
+            application:navGraph="@navigation/nav_graph" />
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
