@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gmaniliapp.sudokusolver.common.Constants
+import com.gmaniliapp.sudokusolver.common.SudokuStrings
 import com.gmaniliapp.sudokusolver.exception.IllegalSudokuContentException
 import com.gmaniliapp.sudokusolver.exception.IllegalSudokuDimensionException
 import com.gmaniliapp.sudokusolver.model.Cell
@@ -14,8 +15,8 @@ import kotlinx.coroutines.launch
 
 class SudokuViewModel : ViewModel() {
 
-    private val _solvingStatus = MutableLiveData<Result<String>>()
-    val solvingStatus: LiveData<Result<String>> = _solvingStatus
+    private val _solvingStatus = MutableLiveData<Result<String?>>()
+    val solvingStatus: LiveData<Result<String?>> = _solvingStatus
 
     fun validateAndSolveSudoku(sudoku: Array<Array<Cell?>>) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -31,13 +32,13 @@ class SudokuViewModel : ViewModel() {
     }
 
     private fun solveSudoku(sudoku: Array<Array<Cell?>>) {
-        _solvingStatus.postValue(Result.loading("Solving the sudoku"))
+        _solvingStatus.postValue(Result.loading(SudokuStrings.SUDOKU_SOLVING))
 
         val solved = isSudokuSolvable(sudoku)
         if (solved) {
-            _solvingStatus.postValue(Result.success("Sudoku solved"))
+            _solvingStatus.postValue(Result.success(SudokuStrings.SUDOKU_SOLVED))
         } else {
-            _solvingStatus.postValue(Result.error("Sudoku can't be solved"))
+            _solvingStatus.postValue(Result.error(SudokuStrings.SUDOKU_UNSOLVABLE))
         }
     }
 
@@ -49,7 +50,7 @@ class SudokuViewModel : ViewModel() {
 
     private fun validateSudokuNotEmpty(sudoku: Array<Array<Cell?>>) {
         if (isSudokuEmpty(sudoku)) {
-            throw IllegalSudokuContentException("Sudoku can't be empty")
+            throw IllegalSudokuContentException(SudokuStrings.SUDOKU_VALIDATION_EMPTY)
         }
     }
 
@@ -66,7 +67,7 @@ class SudokuViewModel : ViewModel() {
 
     private fun validateSudokuDimension(sudoku: Array<Array<Cell?>>) {
         if (!isValidSudokuDimension(sudoku)) {
-            throw IllegalSudokuDimensionException("Sudoku dimension don't match. Required dimension = " + Constants.SUDOKU_DIMENSION + ". Sudoku's dimension = " + sudoku.size)
+            throw IllegalSudokuDimensionException(SudokuStrings.SUDOKU_VALIDATION_DIMENSION)
         }
     }
 
@@ -76,7 +77,7 @@ class SudokuViewModel : ViewModel() {
 
     private fun validateSudokuContent(sudoku: Array<Array<Cell?>>) {
         if (!isValidSudokuContent(sudoku)) {
-            throw IllegalSudokuContentException("Sudoku's can't be solved")
+            throw IllegalSudokuContentException(SudokuStrings.SUDOKU_UNSOLVABLE)
         }
     }
 

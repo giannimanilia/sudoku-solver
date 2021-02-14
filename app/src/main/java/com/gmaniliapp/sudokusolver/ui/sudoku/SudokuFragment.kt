@@ -56,13 +56,13 @@ class SudokuFragment : BaseFragment(R.layout.fragment_sudoku) {
             result?.let {
                 when (result.status) {
                     Status.SUCCESS -> {
-                        displaySnackbar(result.data ?: "Sudoku solved")
+                        displaySnackbar(getStringByName(result.data))
                         loadBoard()
                         sudokuListener.manageProgressBar()
                         setSolvedStatus(true)
                     }
                     Status.ERROR -> {
-                        displaySnackbar(result.data ?: "Unexpected error solving sudoku")
+                        displaySnackbar(getStringByName(result.data))
                         sudokuListener.manageProgressBar()
                         setSolvedStatus(false)
                     }
@@ -163,7 +163,7 @@ class SudokuFragment : BaseFragment(R.layout.fragment_sudoku) {
 
     private fun configureSolveButton() {
         btSolve.setOnClickListener {
-            btSolve.text = "Stop"
+            btSolve.text = getString(R.string.sudoku_action_stop)
             viewModel.validateAndSolveSudoku(board)
         }
     }
@@ -204,7 +204,7 @@ class SudokuFragment : BaseFragment(R.layout.fragment_sudoku) {
     }
 
     private fun setSolvedStatus(solved: Boolean) {
-        btSolve!!.text = "Solve"
+        btSolve!!.text = getString(R.string.sudoku_action_solve)
         btSolve!!.isEnabled = !solved
         btReset!!.isEnabled = solved
     }
@@ -225,5 +225,9 @@ class SudokuFragment : BaseFragment(R.layout.fragment_sudoku) {
             }
         }
         return current
+    }
+
+    private fun getStringByName(name: String?): String {
+        return getString(resources.getIdentifier(name, "string", requireActivity().packageName))
     }
 }

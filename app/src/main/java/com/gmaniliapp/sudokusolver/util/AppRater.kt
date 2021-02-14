@@ -55,10 +55,10 @@ class AppRater(private val context: Context) {
         // Create dialog
         val dialog = MaterialAlertDialogBuilder(context, R.style.MaterialDialogTheme)
                 .setTitle(context.getString(R.string.rate_app))
-                .setMessage(context.getString(R.string.confirmation_rate_app, context.getString(R.string.app_name)))
+                .setMessage(context.getString(R.string.rate_app_confirmation, context.getString(R.string.app_name)))
                 .setPositiveButton(context.getString(R.string.yes), null)
-                .setNegativeButton(context.getString(R.string.dont_ask_again), null)
-                .setNeutralButton(context.getString(R.string.remind_me_later), null)
+                .setNegativeButton(context.getString(R.string.rate_app_do_not_ask_again), null)
+                .setNeutralButton(context.getString(R.string.rate_app_remind_me_later), null)
                 .create()
         dialog.setOnShowListener { dialogInterface: DialogInterface? ->
             val positive = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
