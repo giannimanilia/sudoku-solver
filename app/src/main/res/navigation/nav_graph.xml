@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:application="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    application:startDestination="@id/sudokuFragment">
+
+    <fragment
+        android:id="@+id/sudokuFragment"
+        android:name="com.gmaniliapp.sudokusolver.ui.sudoku.SudokuFragment"
+        android:label="SudokuFragment" />
+
+</navigation>

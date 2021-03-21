@@ -2,56 +2,54 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        tools:context=".fragments.SudokuFragment">
+        tools:context=".ui.sudoku.SudokuFragment">
 
         <TableLayout
-            android:id="@+id/tl_sudoku"
+            android:id="@+id/tlSudoku"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:stretchColumns="*"
             android:background="@color/white"
-            android:elevation="8dp">
-        </TableLayout>
+            android:elevation="8dp"
+            android:stretchColumns="*"></TableLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/bt_solve"
+            android:id="@+id/btSolve"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/solve"/>
+            android:text="@string/sudoku_action_solve" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:layout_gravity="center"
+            android:layout_marginBottom="8dp"
             android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/bt_clear"
+                android:id="@+id/btClear"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginEnd="8dp"
-                android:text="@string/clear"/>
+                android:layout_weight="1"
+                android:text="@string/sudoku_action_clear" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/bt_reset"
+                android:id="@+id/btReset"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:enabled="false"
-                android:text="@string/reset"/>
+                android:text="@string/sudoku_action_reset" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

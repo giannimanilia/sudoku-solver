@@ -1,17 +1,27 @@
 <resources>
     <string name="app_name">Sudoku Solver</string>
-    <string name="clear">Clear</string>
-    <string name="confirmation_rate_app">If you enjoy using %1$s, please take a moment to rate it. Thanks for the support!</string>
-    <string name="dont_ask_again">Don\'t ask again</string>
-    <string name="empty_sudoku">The sudoku can\'t be empty!</string>
-    <string name="reset">Reset</string>
-    <string name="share">Share</string>
-    <string name="share_message">Go check out this amazing app! %1$s: %2$s </string>
+
     <string name="rate">Rate</string>
-    <string name="rate_app">Rate the app</string>
-    <string name="remind_me_later">Remind me later</string>
-    <string name="solve">Solve</string>
-    <string name="stop">Stop</string>
-    <string name="unsolvable_sudoku">This sudoku is unsolvable!</string>
+    <string name="rate_app">Rate the application</string>
+    <string name="rate_app_do_not_ask_again">Don\'t ask again</string>
+    <string name="rate_app_confirmation">If you enjoy using %1$s, please take a moment to rate it. Thanks for the support!</string>
+    <string name="rate_app_remind_me_later">Remind me later</string>
+
+    <string name="share">Share</string>
+    <string name="share_message">Go check out this amazing application! %1$s: %2$s </string>
+
+    <string name="sudoku_action_clear">Clear</string>
+    <string name="sudoku_action_reset">Reset</string>
+    <string name="sudoku_action_solve">Solve</string>
+    <string name="sudoku_action_stop">Stop</string>
+
+    <string name="sudoku_solved">Sudoku solved</string>
+    <string name="sudoku_solving">Solving sudoku</string>
+    <string name="sudoku_unsolvable">Sudoku can\'t be solved</string>
+
+    <string name="sudoku_validation_dimension">The dimension of the sudoku is not valid</string>
+    <string name="sudoku_validation_empty">Sudoku can\'t be empty</string>
+
     <string name="yes">Yes</string>
+
 </resources>
